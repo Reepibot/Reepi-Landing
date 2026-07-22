@@ -399,6 +399,13 @@
           <p>Publicación católica de referencia con análisis cultural y actualidad.</p>
         </div>
       </a>
+      <a href="https://decine21.com" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div class="card" style="cursor:pointer;">
+          <span class="card-icon">🎥</span>
+          <h3>Decine21</h3>
+          <p>Crítica y análisis de cine con guías para padres y clasificación por edades.</p>
+        </div>
+      </a>
     </div>
   </section>
 
@@ -514,11 +521,12 @@
   <div class="modal-box">
     <button class="modal-close" onclick="cerrarModalWA()">&times;</button>
     <h3>💬 ¡Habla con Reepi en WhatsApp!</h3>
-    <p>Escribe directamente a nuestro número de WhatsApp:</p>
-    <p style="text-align:center; margin: 1.2rem 0;">
+    <p>Pregunta lo que necesites — películas, libros, series, juegos o planes para tu familia. 🐭⚔️</p>
+    <div id="wa-boton-directo" style="text-align:center; margin: 1.2rem 0;"></div>
+    <p style="text-align:center; font-size:0.9rem; color:var(--ink-lt); margin-bottom:0.5rem;">O copia el número directamente:</p>
+    <p style="text-align:center; margin: 0.5rem 0 1rem;">
       <span class="donativo-dato" onclick="copiar(this, '+18447034500')" title="Pulsa para copiar">+1 (844) 703-4500</span>
     </p>
-    <p>Pregunta lo que necesites — películas, libros, series, juegos o planes para tu familia. 🐭⚔️</p>
     <p class="modal-nota">Pulsa sobre el número para copiarlo al portapapeles.</p>
   </div>
 </div>
@@ -549,8 +557,28 @@
   }
   function cerrarLightbox() { document.getElementById('lightbox').classList.remove('open'); }
 
-  // Modal WhatsApp
-  function abrirModalWA() { document.getElementById('modalWA').classList.add('open'); }
+  // Modal WhatsApp con detección de SO
+  function abrirModalWA() {
+    document.getElementById('modalWA').classList.add('open');
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const contenedor = document.getElementById('wa-boton-directo');
+    const numero = '+18447034500';
+    let boton = '';
+    if (/android/i.test(ua)) {
+      boton = `<a href="intent://send/${numero}#Intent;scheme=whatsapp;package=com.whatsapp;end"
+        style="display:inline-flex;align-items:center;gap:0.6em;background:#25D366;color:#fff;padding:0.7em 1.6em;border-radius:4px;font-family:'Cinzel',serif;font-size:0.9rem;font-weight:bold;text-decoration:none;letter-spacing:0.05em;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.122 1.527 5.854L0 24l6.302-1.511A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.659-.495-5.19-1.361l-.373-.217-3.742.897.94-3.638-.24-.386A9.934 9.934 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Abrir en WhatsApp (Android)
+      </a>`;
+    } else if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+      boton = `<a href="whatsapp://send?phone=${numero}"
+        style="display:inline-flex;align-items:center;gap:0.6em;background:#25D366;color:#fff;padding:0.7em 1.6em;border-radius:4px;font-family:'Cinzel',serif;font-size:0.9rem;font-weight:bold;text-decoration:none;letter-spacing:0.05em;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.122 1.527 5.854L0 24l6.302-1.511A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.659-.495-5.19-1.361l-.373-.217-3.742.897.94-3.638-.24-.386A9.934 9.934 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Abrir en WhatsApp (iPhone)
+      </a>`;
+    }
+    contenedor.innerHTML = boton;
+  }
   function cerrarModalWA(e) {
     if (!e || e.target === document.getElementById('modalWA') || e.currentTarget.classList.contains('modal-close')) {
       document.getElementById('modalWA').classList.remove('open');
